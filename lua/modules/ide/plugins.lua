@@ -39,4 +39,12 @@ ide["sbdchd/neoformat"] = {
     config = config.neoformat
 }
 
+ide["akinsho/toggleterm.nvim"] = {
+    config = config.toggleterm
+}
+
+ide["numToStr/FTerm.nvim"] = {
+    config = config.fterm
+}
+
 return ide

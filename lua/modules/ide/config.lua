@@ -2,6 +2,14 @@
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local config = {}
 
+vim.cmd([[packadd lsp_signature.nvim]])
+vim.cmd([[packadd lspsaga.nvim]])
+vim.cmd([[packadd cmp-nvim-lsp]])
+
+-- custom capabilities
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = {noremap = true, silent = true}
@@ -45,13 +53,35 @@ local on_attach = function(_, bufnr)
     vim.keymap.set("n", "<space>f", vim.lsp.buf.formatting, bufopts)
 end
 
+-- start lsp server
 function config.lspconfig()
     local servers = {"bashls", "sumneko_lua", "pyright", "rust_analyzer", "tsserver"}
+
     for _, server in pairs(servers) do
-        require("lspconfig")[server].setup {
-            on_attach = on_attach
-            -- capabilities = capabilities,
-        }
+        if server == "bashls" then
+            require("lspconfig")[server].setup {
+                on_attach = on_attach,
+                capabilities = capabilities
+                -- cmd = {"node", "`which bash-language-server`", "start"}
+            }
+        elseif server == "clangd" then
+            require("lspconfig")[server].setup {
+                on_attach = on_attach,
+                capabilities = capabilities,
+                args = {
+                    "--background-index",
+                    "-std=c++20",
+                    "--pch-storage=memory",
+                    "--clang-tidy",
+                    "--suggest-missing-includes"
+                }
+            }
+        else
+            require("lspconfig")[server].setup {
+                on_attach = on_attach,
+                capabilities = capabilities
+            }
+        end
     end
 end
 
@@ -167,6 +197,79 @@ function config.neoformat()
     augroup END
     ]])
     -- vim.keymap.set("n", "<leader>cf", "<cmd>Neoformat<CR>", opts)
+end
+
+-- https://github.com/akinsho/toggleterm.nvim
+function config.toggleterm()
+    function _G.set_terminal_keymaps()
+        local opts = {noremap = true}
+        vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "jk", [[<C-\><C-n>]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<C-h>", [[<C-\><C-n><C-W>h]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<C-j>", [[<C-\><C-n><C-W>j]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
+        vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
+    end
+
+    vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+
+    local Toggleterm = require("toggleterm")
+    Toggleterm.setup(
+        {
+            --  开启的终端默认进入插入模式
+            start_in_insert = true,
+            -- 设置终端打开的大小
+            size = 6,
+            -- 打开普通终端时，关闭拼写检查
+            on_open = function()
+                vim.cmd("setlocal nospell")
+            end
+        }
+    )
+    -- 新建终端
+    local Terminal = require("toggleterm.terminal").Terminal
+    -- 新建浮动终端
+    local floatTerm =
+        Terminal:new(
+        {
+            hidden = true,
+            direction = "float",
+            float_opts = {
+                border = "double"
+            }
+        }
+    )
+    -- 新建 lazygit 终端
+    local lazyGit =
+        Terminal:new(
+        {
+            cmd = "lazygit",
+            hidden = true,
+            direction = "float",
+            float_opts = {
+                border = "double"
+            }
+        }
+    )
+    -- 定义新的方法
+    Toggleterm.float_toggle = function()
+        floatTerm:toggle()
+    end
+    Toggleterm.lazygit_toggle = function()
+        lazyGit:toggle()
+    end
+end
+
+function config.fterm()
+    require "FTerm".setup(
+        {
+            border = "double",
+            dimensions = {
+                height = 0.9,
+                width = 0.9
+            }
+        }
+    )
 end
 
 return config
