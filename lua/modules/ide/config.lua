@@ -5,6 +5,11 @@ local config = {}
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap=true, silent=true }
+
+-- local capabilities = vim.lsp.protocol.make_client_capabilities()
+-- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+
+
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
@@ -14,7 +19,7 @@ vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 -- after the language server attaches to the current buffer
 local on_attach = function(_, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -39,9 +44,10 @@ end
 
 function config.lspconfig ()
     local servers = { 'bashls', 'sumneko_lua', 'pyright', 'rust_analyzer', 'tsserver' }
-    for _, lsp in pairs(servers) do
-    require('lspconfig')[lsp].setup {
+    for _, server in pairs(servers) do
+    require('lspconfig')[server].setup {
         on_attach = on_attach,
+        -- capabilities = capabilities,
     }
     end
 end
@@ -61,8 +67,8 @@ end
 
 
 function config.cmp()
-  local cmp = require('cmp')
 
+  local cmp = require('cmp')
   cmp.setup({
     snippet = {
       -- REQUIRED - you must specify a snippet engine
@@ -92,6 +98,8 @@ function config.cmp()
       -- { name = 'snippy' }, -- For snippy users.
     }, {
       { name = 'buffer' },
+    }, {
+       {name = 'org' }
     })
   })
 
@@ -122,11 +130,13 @@ function config.cmp()
     })
   })
 
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['<YOUR_LSP_SERVER>'].setup {
-    capabilities = capabilities
-  }
 end
+
+-- function config.orgmode()
+--         require('orgmode').setup{
+--             org_agenda_files = {'~/OneDrive/org/*', '~/org/**/*'},
+--             org_default_notes_file = '~/OneDrive/org/note.org',
+--         }
+-- end
+
 return config
