@@ -44,11 +44,12 @@ local plug_map = {
     ["v|<leader>ca"] = map_cu("Lspsaga range_code_action"):with_noremap():with_silent(),
     ["n|gd"] = map_cr("Lspsaga preview_definition"):with_noremap():with_silent(),
     ["n|gD"] = map_cr("lua vim.lsp.buf.definition()"):with_noremap():with_silent(),
+    ["n|<F12>"] = map_cr("lua vim.lsp.buf.definition()"):with_noremap():with_silent(),
     ["n|gh"] = map_cr("lua vim.lsp.buf.references()"):with_noremap():with_silent(),
-    ["n|<A-d>"] = map_cu('lua require("FTerm").toggle()'):with_noremap():with_silent(),
-    ["t|<A-d>"] = map_cu([[<C-\><C-n><CMD>lua require("FTerm").toggle()]]):with_noremap():with_silent(),
+    ["n|<F3>"] = map_cu('lua require("FTerm").toggle()'):with_noremap():with_silent(),
+    ["t|<F3>"] = map_cu([[<C-\><C-n><CMD>lua require("FTerm").toggle()]]):with_noremap():with_silent(),
     ["t|<A-S-d>"] = map_cu([[<C-\><C-n><CMD>lua require("FTerm").exit()]]):with_noremap():with_silent(),
-    ["n|<Leader>g"] = map_cu("lua require('FTerm').run('gitui')"):with_noremap():with_silent(),
+    ["n|<Leader>g"] = map_cu("lua require('FTerm').run('lazygit')"):with_noremap():with_silent(),
     ["n|<Leader>G"] = map_cu("Git"):with_noremap():with_silent(),
     ["n|gps"] = map_cr("G push"):with_noremap():with_silent(),
     ["n|gpl"] = map_cr("G pull"):with_noremap():with_silent(),
@@ -60,6 +61,7 @@ local plug_map = {
     ["n|<leader>cq"] = map_cr("TroubleToggle quickfix"):with_noremap():with_silent(),
     ["n|<leader>cl"] = map_cr("TroubleToggle loclist"):with_noremap():with_silent(),
     -- Plugin nvim-tree
+    ["n|<F4>"] = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
     ["n|<C-n>"] = map_cr("NvimTreeToggle"):with_noremap():with_silent(),
     ["n|<Leader>nf"] = map_cr("NvimTreeFindFile"):with_noremap():with_silent(),
     ["n|<Leader>nr"] = map_cr("NvimTreeRefresh"):with_noremap():with_silent(),
@@ -98,8 +100,6 @@ local plug_map = {
     -- Plugin split-term
     ["n|<F5>"] = map_cr("VTerm"):with_noremap():with_silent(),
     ["n|<C-w>t"] = map_cr("VTerm"):with_noremap():with_silent(),
-    -- Plugin MarkdownPreview
-    ["n|<F12>"] = map_cr("MarkdownPreviewToggle"):with_noremap():with_silent(),
     -- Plugin auto_session
     ["n|<leader>ss"] = map_cu("SaveSession"):with_noremap():with_silent(),
     ["n|<leader>sr"] = map_cu("RestoreSession"):with_noremap():with_silent(),

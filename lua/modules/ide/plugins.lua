@@ -47,4 +47,50 @@ ide["numToStr/FTerm.nvim"] = {
     config = config.fterm
 }
 
+ide["tpope/vim-fugitive"] = {
+    cmd = {
+        "G",
+        "Git",
+        "Gdiffsplit",
+        "Gread",
+        "Gwrite",
+        "Ggrep",
+        "GMove",
+        "GDelete",
+        "GBrowse",
+        "GRemove",
+        "GRename",
+        "Glgrep",
+        "Gedit"
+    },
+    ft = {"fugitive"}
+}
+
+ide["tpope/vim-sourround"] = {
+    keys = {"c", "d", "y"}
+}
+
+ide["kevinhwang91/rnvimr"] = {
+    cmd = "RnvimrToggle",
+    config = function()
+        vim.g.rnvimr_draw_border = 1
+        vim.g.rnvimr_pick_enable = 1
+        vim.g.rnvimr_bw_enable = 1
+    end
+}
+
+ide["camspiers/snap"] = {
+    rocks = "fzy",
+    config = function()
+        local snap = require("snap")
+        local layout = snap.get("layout").bottom
+        local file = snap.config.file:with {consumer = "fzy", layout = layout}
+        local vimgrep = snap.config.vimgrep:with {layout = layout}
+        snap.register.command("find_files", file {producer = "ripgrep.file"})
+        snap.register.command("buffers", file {producer = "vim.buffer"})
+        snap.register.command("oldfiles", file {producer = "vim.oldfile"})
+        snap.register.command("live_grep", vimgrep {})
+    end
+}
+
 return ide

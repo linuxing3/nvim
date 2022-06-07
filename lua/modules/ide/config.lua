@@ -272,4 +272,8 @@ function config.fterm()
     )
 end
 
+function config.fugitive()
+    
+end
+
 return config

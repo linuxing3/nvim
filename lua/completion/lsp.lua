@@ -13,12 +13,14 @@ local lsp_installer = require("nvim-lsp-installer")
 
 -- Override diagnostics symbol
 
-saga.init_lsp_saga({
-	error_sign = "",
-	warn_sign = "",
-	hint_sign = "",
-	infor_sign = "",
-})
+saga.init_lsp_saga(
+    {
+        error_sign = "",
+        warn_sign = "",
+        hint_sign = "",
+        infor_sign = ""
+    }
+)
 
 lsp_installer.setup({})
 
@@ -26,50 +28,61 @@ local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local function custom_attach(client)
-	require("lsp_signature").on_attach({
-		bind = true,
-		use_lspsaga = false,
-		floating_window = true,
-		fix_pos = true,
-		hint_enable = true,
-		hi_parameter = "Search",
-		handler_opts = { "double" },
-	})
-	-- require("aerial").on_attach(client)
-	-- require("illuminate").on_attach(client)
+    require("lsp_signature").on_attach(
+        {
+            bind = true,
+            use_lspsaga = false,
+            floating_window = true,
+            fix_pos = true,
+            hint_enable = true,
+            hi_parameter = "Search",
+            handler_opts = {"double"}
+        }
+    )
+    -- require("aerial").on_attach(client)
+    -- require("illuminate").on_attach(client)
 end
 
 local function switch_source_header_splitcmd(bufnr, splitcmd)
-	bufnr = nvim_lsp.util.validate_bufnr(bufnr)
-	local clangd_client = nvim_lsp.util.get_active_client_by_name(bufnr, "clangd")
-	local params = { uri = vim.uri_from_bufnr(bufnr) }
-	if clangd_client then
-		clangd_client.request("textDocument/switchSourceHeader", params, function(err, result)
-			if err then
-				error(tostring(err))
-			end
-			if not result then
-				print("Corresponding file can’t be determined")
-				return
-			end
-			vim.api.nvim_command(splitcmd .. " " .. vim.uri_to_fname(result))
-		end)
-	else
-		print("method textDocument/switchSourceHeader is not supported by any servers active on the current buffer")
-	end
+    bufnr = nvim_lsp.util.validate_bufnr(bufnr)
+    local clangd_client = nvim_lsp.util.get_active_client_by_name(bufnr, "clangd")
+    local params = {uri = vim.uri_from_bufnr(bufnr)}
+    if clangd_client then
+        clangd_client.request(
+            "textDocument/switchSourceHeader",
+            params,
+            function(err, result)
+                if err then
+                    error(tostring(err))
+                end
+                if not result then
+                    print("Corresponding file can’t be determined")
+                    return
+                end
+                vim.api.nvim_command(splitcmd .. " " .. vim.uri_to_fname(result))
+            end
+        )
+    else
+        print("method textDocument/switchSourceHeader is not supported by any servers active on the current buffer")
+    end
 end
 
 -- Override server settings here
 
-local servers = { "bashls", "jsonls", "sumneko_lua" }
+local servers = {"bashls", "jsonls", "sumneko_lua"}
 
 for _, server in pairs(servers) do
-	nvm_lsp[server].setup({
-			capabilities = capabilities,
-			on_attach = custom_attach,
-    })
+    if server == "bashls" then
+        nvim_lsp.bashls.setup({})
+    else
+        nvm_lsp[server].setup(
+            {
+                capabilities = capabilities,
+                on_attach = custom_attach
+            }
+        )
+    end
 end
-
 
 -- for _, server in ipairs(lsp_installer.get_installed_servers()) do
 -- 	if server.name == "gopls" then
@@ -212,23 +225,23 @@ end
 -- https://github.com/vscode-langservers/vscode-html-languageserver-bin
 
 -- local efmls = require("efmls-configs")
--- 
+--
 -- -- Init `efm-langserver` here.
--- 
+--
 -- efmls.init({
 -- 	on_attach = custom_attach,
 -- 	capabilities = capabilities,
 -- 	init_options = { documentFormatting = true, codeAction = true },
 -- })
--- 
+--
 -- -- Require `efmls-configs-nvim`'s config here
--- 
+--
 -- local vint = require("efmls-configs.linters.vint")
 -- local clangtidy = require("efmls-configs.linters.clang_tidy")
 -- local eslint = require("efmls-configs.linters.eslint")
 -- local flake8 = require("efmls-configs.linters.flake8")
 -- local shellcheck = require("efmls-configs.linters.shellcheck")
--- 
+--
 -- local black = require("efmls-configs.formatters.black")
 -- local luafmt = require("efmls-configs.formatters.stylua")
 -- local clangfmt = {
@@ -237,13 +250,13 @@ end
 -- }
 -- local prettier = require("efmls-configs.formatters.prettier")
 -- local shfmt = require("efmls-configs.formatters.shfmt")
--- 
+--
 -- -- Add your own config for formatter and linter here
--- 
+--
 -- -- local rustfmt = require("modules.completion.efm.formatters.rustfmt")
--- 
+--
 -- -- Override default config here
--- 
+--
 -- flake8 = vim.tbl_extend("force", flake8, {
 -- 	prefix = "flake8: max-line-length=160, ignore F403 and F405",
 -- 	lintStdin = true,
@@ -251,9 +264,9 @@ end
 -- 	lintFormats = { "%f:%l:%c: %t%n%n%n %m" },
 -- 	lintCommand = "flake8 --max-line-length 160 --extend-ignore F403,F405 --format '%(path)s:%(row)d:%(col)d: %(code)s %(code)s %(text)s' --stdin-display-name ${INPUT} -",
 -- })
--- 
+--
 -- -- Setup formatter and linter for efmls here
--- 
+--
 -- efmls.setup({
 -- 	vim = { formatter = vint },
 -- 	lua = { formatter = luafmt },
