@@ -10,10 +10,6 @@ ui["catppuccin/nvim"] = {
 	commit = "f079dda3dc23450d69b4bad11bfbd9af2c77f6f3",
 	config = conf.catppuccin,
 }
-ui["rcarriga/nvim-notify"] = {
-	opt = false,
-	config = conf.notify,
-}
 ui["hoob3rt/lualine.nvim"] = {
 	opt = true,
 	after = "nvim-gps",
@@ -23,11 +19,6 @@ ui["SmiteshP/nvim-gps"] = {
 	opt = true,
 	after = "nvim-treesitter",
 	config = conf.nvim_gps,
-}
-ui["goolord/alpha-nvim"] = {
-	opt = true,
-	event = "BufWinEnter",
-	config = conf.alpha,
 }
 ui["kyazdani42/nvim-tree.lua"] = {
 	opt = true,
