@@ -4,12 +4,12 @@ local conf = require("modules.ui.config")
 ui["kyazdani42/nvim-web-devicons"] = { opt = false }
 ui["shaunsingh/nord.nvim"] = { opt = false, config = conf.nord }
 ui["sainnhe/edge"] = { opt = false, config = conf.edge }
-ui["catppuccin/nvim"] = {
-	opt = false,
-	as = "catppuccin",
-	commit = "f079dda3dc23450d69b4bad11bfbd9af2c77f6f3",
-	config = conf.catppuccin,
-}
+-- ui["catppuccin/nvim"] = {
+-- 	opt = false,
+-- 	as = "catppuccin",
+-- 	commit = "f079dda3dc23450d69b4bad11bfbd9af2c77f6f3",
+-- 	config = conf.catppuccin,
+-- }
 ui["hoob3rt/lualine.nvim"] = {
 	opt = true,
 	after = "nvim-gps",
@@ -36,19 +36,19 @@ ui["lukas-reineke/indent-blankline.nvim"] = {
 	event = "BufRead",
 	config = conf.indent_blankline,
 }
-ui["akinsho/bufferline.nvim"] = {
-	opt = true,
-	tag = "*",
-	event = "BufRead",
-	config = conf.nvim_bufferline,
-}
-ui["dstein64/nvim-scrollview"] = {
-	opt = true,
-	event = { "BufRead" },
-	config = function()
-		require("scrollview").setup({})
-	end,
-}
+-- ui["akinsho/bufferline.nvim"] = {
+-- 	opt = true,
+-- 	tag = "*",
+-- 	event = "BufRead",
+-- 	config = conf.nvim_bufferline,
+-- }
+-- ui["dstein64/nvim-scrollview"] = {
+-- 	opt = true,
+-- 	event = { "BufRead" },
+-- 	config = function()
+-- 		require("scrollview").setup({})
+-- 	end,
+-- }
 ui["mbbill/undotree"] = {
 	opt = true,
 	cmd = "UndotreeToggle",

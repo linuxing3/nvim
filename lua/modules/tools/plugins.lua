@@ -6,7 +6,7 @@ tools["nvim-lua/plenary.nvim"] = { opt = false }
 
 -- fuzzy search stuff
 tools["nvim-telescope/telescope.nvim"] = {
-	opt = true,
+    opt = false,
 	module = "telescope",
 	cmd = "Telescope",
 	config = conf.telescope,
@@ -16,16 +16,16 @@ tools["nvim-telescope/telescope.nvim"] = {
 	},
 }
 tools["nvim-telescope/telescope-fzf-native.nvim"] = {
-	opt = true,
+    opt = false,
 	run = "make",
 	after = "telescope.nvim",
 }
 tools["nvim-telescope/telescope-project.nvim"] = {
-	opt = true,
+    opt = false,
 	after = "telescope-fzf-native.nvim",
 }
 tools["nvim-telescope/telescope-file-browser.nvim"] = { 
-    opt = true, 
+    opt = false,
     after = "telescope-fzf-native.nvim"
 }
 
@@ -44,12 +44,10 @@ tools["michaelb/sniprun"] = {
 	cmd = { "SnipRun", "'<,'>SnipRun" },
 }
 tools["folke/which-key.nvim"] = {
-	opt = true,
 	keys = ",",
 	config = conf.which_key,
 }
 tools["folke/trouble.nvim"] = {
-	opt = true,
 	cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
 	config = conf.trouble,
 }
