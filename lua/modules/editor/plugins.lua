@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local editor = {}
 local conf = require("modules.editor.config")
 

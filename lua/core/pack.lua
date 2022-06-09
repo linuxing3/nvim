@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local fn, uv, api = vim.fn, vim.loop, vim.api
 local is_mac = require("core.global").is_mac
 local vim_path = require("core.global").vim_path

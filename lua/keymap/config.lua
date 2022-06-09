@@ -1,3 +1,4 @@
+--- @diagnostic disable:undefined-global
 local vim = vim
 
 local t = function(str)

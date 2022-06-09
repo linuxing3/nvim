@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local tools = {}
 local conf = require("modules.tools.config")
 

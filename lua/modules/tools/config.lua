@@ -1,4 +1,11 @@
+---@diagnostic disable:undefined-global
 local config = {}
+
+local tele_status_ok, telescope = pcall(require, "telescope")
+if not tele_status_ok then
+	return
+end
+
 
 function config.telescope()
     vim.cmd([[packadd telescope-project.nvim]])
@@ -23,7 +30,7 @@ function config.telescope()
         end
     }
 
-    require("telescope").setup(
+    telescope.setup(
         {
             defaults = {
                 initial_mode = "insert",
@@ -76,8 +83,8 @@ function config.telescope()
         }
     )
 
-    require("telescope").load_extension("project")
-    require("telescope").load_extension("file_browser")
+    telescope.load_extension("project")
+    telescope.load_extension("file_browser")
     -- require("telescope").load_extension("fzf")
     -- require("telescope").load_extension("zoxide")
     -- require("telescope").load_extension("frecency")
@@ -133,8 +140,13 @@ function config.trouble()
     )
 end
 
+local sniprun_ok, sniprun = pcall(require, "sniprun")
+if not sniprun_ok then
+    return
+end
+
 function config.sniprun()
-    require("sniprun").setup(
+    sniprun.setup(
         {
             selected_interpreters = {}, -- " use those instead of the default for the current filetype
             repl_enable = {}, -- " enable REPL-like behavior for the given interpreters
@@ -228,8 +240,12 @@ function config.filetype()
     )
 end
 
+local spectre_ok, spectre = pcall(require, "spectre")
+if not spectre_ok then
+    return
+end
 function config.spectre()
-    require("spectre").setup(
+    spectre.setup(
         {
             mapping = {
                 -- 删除选中

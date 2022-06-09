@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local vim = vim
 local autocmd = {}
 

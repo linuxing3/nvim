@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local config = {}
 
 -- function config.alpha()

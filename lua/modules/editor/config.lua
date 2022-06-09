@@ -1,3 +1,6 @@
+
+--- @diagnostic disable:undefined-global
+
 local config = {}
 local sessions_dir = vim.fn.stdpath("data") .. "/sessions/"
 

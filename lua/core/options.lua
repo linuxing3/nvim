@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local global = require("core.global")
 
 local function load_options()

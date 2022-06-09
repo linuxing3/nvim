@@ -1,3 +1,5 @@
+
+--- @diagnostic disable:undefined-global
 local ui = {}
 local conf = require("modules.ui.config")
 
