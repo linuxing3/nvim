@@ -2,13 +2,9 @@
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local config = {}
 
-vim.cmd([[packadd lsp_signature.nvim]])
-vim.cmd([[packadd lspsaga.nvim]])
-vim.cmd([[packadd cmp-nvim-lsp]])
-
--- custom capabilities
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+-- vim.cmd([[packadd lsp_signature.nvim]])
+-- vim.cmd([[packadd lspsaga.nvim]])
+-- vim.cmd([[packadd cmp-nvim-lsp]])
 
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -61,13 +57,11 @@ function config.lspconfig()
         if server == "bashls" then
             require("lspconfig")[server].setup {
                 on_attach = on_attach,
-                capabilities = capabilities
                 -- cmd = {"node", "`which bash-language-server`", "start"}
             }
         elseif server == "clangd" then
             require("lspconfig")[server].setup {
                 on_attach = on_attach,
-                capabilities = capabilities,
                 args = {
                     "--background-index",
                     "-std=c++20",
@@ -79,7 +73,6 @@ function config.lspconfig()
         else
             require("lspconfig")[server].setup {
                 on_attach = on_attach,
-                capabilities = capabilities
             }
         end
     end

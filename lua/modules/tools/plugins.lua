@@ -36,11 +36,11 @@ tools["nvim-telescope/telescope-file-browser.nvim"] = {
 -- tools["jvgrootveld/telescope-zoxide"] = { opt = true, after = "telescope-frecency.nvim" }
 
 -- snip run
-tools["michaelb/sniprun"] = {
-    opt = true,
-    run = "bash ./install.sh",
-    cmd = {"SnipRun", "'<,'>SnipRun"}
-}
+-- tools["michaelb/sniprun"] = {
+--     opt = true,
+--     run = "bash ./install.sh",
+--     cmd = {"SnipRun", "'<,'>SnipRun"}
+-- }
 tools["folke/which-key.nvim"] = {
     keys = ",",
     config = conf.which_key
