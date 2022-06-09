@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local config = {}

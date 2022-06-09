@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 local ide = {}
 
 local config = require("modules.ide.config")
@@ -26,11 +27,11 @@ ide["hrsh7th/nvim-cmp"] = {
     event = "InsertEnter",
     requires = {
         {"hrsh7th/cmp-nvim-lsp"},
-        {"hrsh7th/cmp-buffer"},
-        {"hrsh7th/cmp-path"},
-        {"hrsh7th/cmp-cmdline"},
-        {"hrsh7th/cmp-vsnip"},
-        {"hrsh7th/vim-vsnip"}
+        {"hrsh7th/cmp-buffer", after = "nvim-cmp" },
+        {"hrsh7th/cmp-path", after = "nvim-cmp"},
+        {"hrsh7th/cmp-cmdline", after = "nvim-cmp"},
+        {"hrsh7th/cmp-vsnip", after = "nvim-cmp"},
+        {"hrsh7th/vim-vsnip", after = "nvim-cmp" }
         -- { "nvim-orgmode/orgmode", config = config.orgmode },
     }
 }
